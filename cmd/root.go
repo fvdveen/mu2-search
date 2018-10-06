@@ -65,8 +65,12 @@ This is the search service for mu2.`,
 			return fmt.Errorf("could not create provider: %v", err)
 		}
 
-		ych, rch := events.Youtube(events.Watch(p.Watch()))
-		events.Null(rch)
+		var ych, ch <-chan *events.Event
+
+		ch = events.Watch(p.Watch())
+
+		ych, ch = events.Youtube(ch)
+		events.Null(ch)
 
 		ss := watch.Youtube(ych)
 
