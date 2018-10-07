@@ -9,6 +9,7 @@ import (
 	"github.com/sirupsen/logrus"
 )
 
+// Youtube creates a watcher for youtube events
 func Youtube(ch <-chan *events.Event) searchpb.SearchServiceHandler {
 	var wg sync.WaitGroup
 
@@ -17,6 +18,7 @@ func Youtube(ch <-chan *events.Event) searchpb.SearchServiceHandler {
 	wg.Add(1)
 
 	go func(ch <-chan *events.Event, s search.Wrapper) {
+		logrus.WithFields(map[string]interface{}{"type": "watch", "watch": "youtube"}).Debug("Starting...")
 		var done = false
 		for evnt := range ch {
 			if evnt.Key != "youtube.apikey" {

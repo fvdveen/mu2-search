@@ -16,6 +16,7 @@ import (
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
+	"github.com/micro/go-micro/transport"
 )
 
 var (
@@ -53,6 +54,11 @@ This is the search service for mu2.`,
 			micro.AfterStop(func() error {
 				return p.Close()
 			}),
+			micro.Transport(
+				transport.NewTransport(
+					transport.Secure(true),
+				),
+			),
 		)
 
 		c, err := api.NewClient(cc)
@@ -112,6 +118,8 @@ func initConfig() {
 	}
 
 	var lvl logrus.Level
+
+	lvl = logrus.DebugLevel
 
 	logrus.SetLevel(lvl)
 }
