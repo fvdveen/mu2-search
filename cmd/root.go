@@ -13,10 +13,10 @@ import (
 	"github.com/micro/go-grpc"
 	"github.com/micro/go-micro"
 	"github.com/micro/go-micro/registry/consul"
+	"github.com/micro/go-micro/transport"
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
-	"github.com/micro/go-micro/transport"
 )
 
 var (
